@@ -5,8 +5,8 @@ import net.minecraft.world.item.trading.MerchantOffer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.util.RandomSource;
+import org.jetbrains.annotations.NotNull;
 
-import java.util.Random;
 
 public class TradeOffers {
     public static class SimpleTrade implements ItemListing {
@@ -25,7 +25,7 @@ public class TradeOffers {
         }
 
         @Override
-        public MerchantOffer getOffer(Entity entity, RandomSource randomSource) {
+        public MerchantOffer getOffer(@NotNull Entity entity, @NotNull RandomSource randomSource) {
             // Optionally check if entity is a Villager
             return new MerchantOffer(input, output, maxUses, villagerXp, priceMultiplier);
         }

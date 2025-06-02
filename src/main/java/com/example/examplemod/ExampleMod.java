@@ -2,6 +2,7 @@ package com.example.examplemod;
 
 import com.mojang.logging.LogUtils;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -10,6 +11,8 @@ import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.SpawnEggItem;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -39,6 +42,10 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.ai.village.poi.PoiManager;
+import com.example.examplemod.TradeTerminalScreen;
+import com.example.examplemod.TradeTerminalMenu;
+import com.example.examplemod.ModMenus;
 
 // The value here should match an entry in the META-INF/mods.toml file
 @Mod(ExampleMod.MODID)
@@ -59,10 +66,6 @@ public class ExampleMod {
         () -> new Block(BlockBehaviour.Properties.of()
             .mapColor(MapColor.STONE)
         )
-    );
-    // Creates a new BlockItem with the id "examplemod:example_block", combining the namespace and path
-    public static final RegistryObject<Item> EXAMPLE_BLOCK_ITEM = ITEMS.register("example_block",
-        () -> new BlockItem(EXAMPLE_BLOCK.get(), new Item.Properties())
     );
 
     // Creates a new food item with the id "examplemod:example_id", nutrition 1 and saturation 2
@@ -114,6 +117,7 @@ public class ExampleMod {
         com.example.examplemod.ModItems.register(modEventBus);
         com.example.examplemod.ModVillagers.register(modEventBus); // Register custom villager POI and profession
         ModBlocks.register(modEventBus); // Register custom blocks
+        ModMenus.register(modEventBus); // Register custom menus
 
         // Register the item to a creative tab
         modEventBus.addListener(this::addCreativeItems);
@@ -145,6 +149,7 @@ public class ExampleMod {
             event.accept(com.example.examplemod.ModItems.TEST_ITEM);
             event.accept(TRADING_POST_ITEM.get());
             event.accept(COMMODITY_TRADER_SPAWN_EGG.get());
+            event.accept(com.example.examplemod.ModItems.TRADE_TERMINAL_ITEM.get()); // Add Trade Terminal to Tools & Utilities
         }
     }
 
@@ -171,8 +176,15 @@ public class ExampleMod {
                 villager.moveTo(spawnPos.getX() + 0.5, spawnPos.getY() + 1, spawnPos.getZ() + 0.5, 0.0F, 0.0F);
                 villager.setVillagerData(new VillagerData(VillagerType.PLAINS, com.example.examplemod.ModVillagers.COMMODITY_TRADER.get(), 1));
                 villager.refreshBrain(level);
+                // Force villager to recognize the POI
+                villager.restrictTo(spawnPos, 1);
                 level.addFreshEntity(villager);
             }
+            // Give player a Trade Terminal item on first login
+            player.getInventory().add(com.example.examplemod.ModItems.TRADE_TERMINAL_ITEM.get().getDefaultInstance());
+            // Add items for testing trades
+            player.getInventory().add(new ItemStack(Items.EMERALD, 64));
+            player.getInventory().add(new ItemStack(Items.IRON_INGOT, 64));
         }
     }
 
@@ -184,6 +196,7 @@ public class ExampleMod {
             // Some client setup code
             LOGGER.info("HELLO FROM CLIENT SETUP");
             LOGGER.info("MINECRAFT NAME >> {}", Minecraft.getInstance().getUser().getName());
+            MenuScreens.register(ModMenus.TRADE_TERMINAL_MENU.get(), TradeTerminalScreen::new);
         }
     }
 }

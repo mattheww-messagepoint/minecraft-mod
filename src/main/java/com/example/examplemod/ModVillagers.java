@@ -1,10 +1,11 @@
 package com.example.examplemod;
 
 import com.google.common.collect.ImmutableSet;
-import com.example.examplemod.ModBlocks;
 import net.minecraft.world.entity.ai.village.poi.PoiType;
 import net.minecraft.world.entity.npc.VillagerProfession;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.event.village.VillagerTradesEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -12,7 +13,9 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
-import net.minecraft.world.level.block.Blocks;
+
+import java.util.Set;
+import java.util.stream.Collectors;
 
 // Change to FORGE bus for VillagerTradesEvent
 @Mod.EventBusSubscriber(modid = ExampleMod.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE)
@@ -20,8 +23,14 @@ public class ModVillagers {
     public static final DeferredRegister<PoiType> POI_TYPES = DeferredRegister.create(ForgeRegistries.POI_TYPES, ExampleMod.MODID);
     public static final DeferredRegister<VillagerProfession> PROFESSIONS = DeferredRegister.create(ForgeRegistries.VILLAGER_PROFESSIONS, ExampleMod.MODID);
 
+    // Helper to get all block states for the Trading Post
+    private static Set<BlockState> getAllTradingPostStates() {
+        Block tradingPost = com.example.examplemod.ModBlocks.TRADING_POST.get();
+        return tradingPost.getStateDefinition().getPossibleStates().stream().collect(Collectors.toSet());
+    }
+
     public static final RegistryObject<PoiType> COMMODITY_POI = POI_TYPES.register("commodity_poi",
-            () -> new PoiType(ImmutableSet.of(com.example.examplemod.ModBlocks.TRADING_POST.get().defaultBlockState()), 1, 1));
+            () -> new PoiType(getAllTradingPostStates(), 1, 1));
 
     public static final RegistryObject<VillagerProfession> COMMODITY_TRADER = PROFESSIONS.register("commodity_trader",
             () -> new VillagerProfession("commodity_trader",
@@ -59,4 +68,3 @@ public class ModVillagers {
         }
     }
 }
-

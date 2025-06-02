@@ -1,17 +1,10 @@
 package com.example.examplemod;
 
-import com.example.examplemod.ExampleMod;
-import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Item.Properties;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
-import net.minecraft.world.item.CreativeModeTab;
-import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.BlockItem;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
@@ -23,6 +16,9 @@ public class ModItems {
 
     public static final RegistryObject<Item> TEST_ITEM = ITEMS.register("test_item",
             () -> new Item(new Properties()));
+
+    public static final RegistryObject<Item> TRADE_TERMINAL_ITEM = ITEMS.register("trade_terminal",
+            () -> new BlockItem(com.example.examplemod.ModBlocks.TRADE_TERMINAL.get(), new Properties()));
 
     public static void register(IEventBus eventBus) {
         ITEMS.register(eventBus);

@@ -1,7 +1,6 @@
 package com.example.examplemod;
 
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraftforge.registries.DeferredRegister;
@@ -13,6 +12,9 @@ public class ModBlocks {
 
     public static final RegistryObject<Block> TRADING_POST = BLOCKS.register("trading_post",
             () -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.METAL).strength(3.5F)));
+
+    public static final RegistryObject<Block> TRADE_TERMINAL = BLOCKS.register("trade_terminal",
+            TradeTerminalBlock::new);
 
     public static void register(net.minecraftforge.eventbus.api.IEventBus eventBus) {
         BLOCKS.register(eventBus);
