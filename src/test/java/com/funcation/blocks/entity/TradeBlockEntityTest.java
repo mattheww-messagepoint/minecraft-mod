@@ -41,8 +41,11 @@ class TradeBlockEntityTest {
     void setUp() {
         // Mock BlockState as it's not relevant for logic
         BlockState mockState = Mockito.mock(BlockState.class);
-        tradeBlockEntity = new TradeBlockEntity(BlockPos.ZERO, mockState);
+        // Use a test-only constructor to avoid registry lookup
+        tradeBlockEntity = TradeBlockEntity.createForTest(BlockPos.ZERO, mockState);
         mockPlayer = Mockito.mock(Player.class);
+        // Mock getName() to avoid NPE in debug output
+        Mockito.when(mockPlayer.getName()).thenReturn(net.minecraft.network.chat.Component.literal("TestPlayer"));
         progress = new PlayerTradeProgress();
         config = Arrays.asList(2, 3, 4); // Example config: 2 unique for tier 1, etc.
     }

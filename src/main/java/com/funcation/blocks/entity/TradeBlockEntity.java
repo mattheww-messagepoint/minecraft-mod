@@ -6,6 +6,7 @@ import net.minecraft.world.ContainerHelper;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import com.funcation.registry.ModBlockEntities; // Added import for ModBlockEntities
 import net.minecraft.world.entity.player.Player;
@@ -63,6 +64,13 @@ public class TradeBlockEntity extends BlockEntity implements MenuProvider {
 
     public TradeBlockEntity(BlockPos pos, BlockState state) {
         super(ModBlockEntities.TRADE_BLOCK_ENTITY.get(), pos, state);
+    }
+
+    /**
+     * Protected constructor for test use, allows bypassing registry.
+     */
+    protected TradeBlockEntity(@Nullable BlockEntityType<?> type, BlockPos pos, BlockState state) {
+        super(type, pos, state);
     }
 
     public SimpleContainer getInventory() {
@@ -378,5 +386,13 @@ public class TradeBlockEntity extends BlockEntity implements MenuProvider {
      */
     public int getUniqueTradesRequiredForCurrentTier() {
         return com.funcation.data.TradeManager.getUniqueTradesRequiredForTier(currentTier);
+    }
+
+    /**
+     * Test-only factory method to create a TradeBlockEntity without registry lookup.
+     */
+    public static TradeBlockEntity createForTest(BlockPos pos, BlockState state) {
+        // Use null for BlockEntityType in tests
+        return new TradeBlockEntity(null, pos, state);
     }
 }

@@ -225,7 +225,7 @@ eclipse {
 // And if we have it in multiple we have to do performance intensive hacks like having the UnionFileSystem
 // This will eventually be migrated to ForgeGradle so modders don't need to manually do it. But that is later.
 sourceSets.each {
-    def dir = layout.buildDirectory.dir("sourcesSets/$it.name")
+    def dir = layout.buildDirectory.dir("sourceSets/$it.name")
     it.output.resourcesDir = dir
     it.java.destinationDirectory = dir
 }

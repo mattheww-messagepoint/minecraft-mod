@@ -69,24 +69,24 @@ This mod adds trading functionality to reduce tedious early game grinding.
     side="BOTH"
 
 # Add entry for examplemod
-[[mods]]
-modId="examplemod"
-version="1.0.0"
-displayName="Example Mod"
-description='''
-This mod is being replaced by funcation mod.
-'''
-
-[[dependencies.examplemod]]
-    modId="forge"
-    mandatory=true
-    versionRange="[47,)"
-    ordering="NONE"
-    side="BOTH"
-
-[[dependencies.examplemod]]
-    modId="minecraft"
-    mandatory=true
-    versionRange="[1.20.1,1.21)"
-    ordering="NONE"
-    side="BOTH"
+# [[mods]]
+# modId="examplemod"
+# version="1.0.0"
+# displayName="Example Mod"
+# description='''
+# This mod is being replaced by funcation mod.
+# '''
+#
+# [[dependencies.examplemod]]
+#     modId="forge"
+#     mandatory=true
+#     versionRange="[47,)"
+#     ordering="NONE"
+#     side="BOTH"
+#
+# [[dependencies.examplemod]]
+#     modId="minecraft"
+#     mandatory=true
+#     versionRange="[1.20.1,1.21)"
+#     ordering="NONE"
+#     side="BOTH"

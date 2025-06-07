@@ -25,6 +25,281 @@ public class TradeManager {
     private static List<Integer> uniqueTradesRequiredPerTier = java.util.Arrays.asList(2, 3, 4); // fallback default
 
     static {
+        // Tier 3: Late game progression and advanced crafting alternatives
+        // 1. Charcoal + Gravel to Copper Ingot - Renewable to ore pathway
+        TIER_3_TRADES.add(new TradeOffer(
+                List.of(
+                        new ItemStack(net.minecraft.world.item.Items.CHARCOAL, 12),
+                        new ItemStack(net.minecraft.world.item.Items.GRAVEL, 4)
+                ),
+                new ItemStack(net.minecraft.world.item.Items.COPPER_INGOT, 1), 3, Integer.MAX_VALUE));
+        TIER_3_TRADES.add(new TradeOffer(
+                List.of(
+                        new ItemStack(net.minecraft.world.item.Items.GRAVEL, 4),
+                        new ItemStack(net.minecraft.world.item.Items.CHARCOAL, 12)
+                ),
+                new ItemStack(net.minecraft.world.item.Items.COPPER_INGOT, 1), 3, Integer.MAX_VALUE));
+
+        // 2. Stone Tools + Flint to Iron Nugget - Tool recycling path
+        // Creating four trades for the different stone tools
+        TIER_3_TRADES.add(new TradeOffer(
+                List.of(
+                        new ItemStack(net.minecraft.world.item.Items.STONE_PICKAXE, 6),
+                        new ItemStack(net.minecraft.world.item.Items.FLINT, 3)
+                ),
+                new ItemStack(net.minecraft.world.item.Items.IRON_NUGGET, 1), 3, Integer.MAX_VALUE));
+        TIER_3_TRADES.add(new TradeOffer(
+                List.of(
+                        new ItemStack(net.minecraft.world.item.Items.FLINT, 3),
+                        new ItemStack(net.minecraft.world.item.Items.STONE_PICKAXE, 6)
+                ),
+                new ItemStack(net.minecraft.world.item.Items.IRON_NUGGET, 1), 3, Integer.MAX_VALUE));
+        TIER_3_TRADES.add(new TradeOffer(
+                List.of(
+                        new ItemStack(net.minecraft.world.item.Items.STONE_AXE, 6),
+                        new ItemStack(net.minecraft.world.item.Items.FLINT, 3)
+                ),
+                new ItemStack(net.minecraft.world.item.Items.IRON_NUGGET, 1), 3, Integer.MAX_VALUE));
+        TIER_3_TRADES.add(new TradeOffer(
+                List.of(
+                        new ItemStack(net.minecraft.world.item.Items.FLINT, 3),
+                        new ItemStack(net.minecraft.world.item.Items.STONE_AXE, 6)
+                ),
+                new ItemStack(net.minecraft.world.item.Items.IRON_NUGGET, 1), 3, Integer.MAX_VALUE));
+        TIER_3_TRADES.add(new TradeOffer(
+                List.of(
+                        new ItemStack(net.minecraft.world.item.Items.STONE_SHOVEL, 6),
+                        new ItemStack(net.minecraft.world.item.Items.FLINT, 3)
+                ),
+                new ItemStack(net.minecraft.world.item.Items.IRON_NUGGET, 1), 3, Integer.MAX_VALUE));
+        TIER_3_TRADES.add(new TradeOffer(
+                List.of(
+                        new ItemStack(net.minecraft.world.item.Items.FLINT, 3),
+                        new ItemStack(net.minecraft.world.item.Items.STONE_SHOVEL, 6)
+                ),
+                new ItemStack(net.minecraft.world.item.Items.IRON_NUGGET, 1), 3, Integer.MAX_VALUE));
+        TIER_3_TRADES.add(new TradeOffer(
+                List.of(
+                        new ItemStack(net.minecraft.world.item.Items.STONE_HOE, 6),
+                        new ItemStack(net.minecraft.world.item.Items.FLINT, 3)
+                ),
+                new ItemStack(net.minecraft.world.item.Items.IRON_NUGGET, 1), 3, Integer.MAX_VALUE));
+        TIER_3_TRADES.add(new TradeOffer(
+                List.of(
+                        new ItemStack(net.minecraft.world.item.Items.FLINT, 3),
+                        new ItemStack(net.minecraft.world.item.Items.STONE_HOE, 6)
+                ),
+                new ItemStack(net.minecraft.world.item.Items.IRON_NUGGET, 1), 3, Integer.MAX_VALUE));
+
+        // 3. Rotten Flesh + Dirt to Leather - Farming alternative
+        TIER_3_TRADES.add(new TradeOffer(
+                List.of(
+                        new ItemStack(net.minecraft.world.item.Items.ROTTEN_FLESH, 10),
+                        new ItemStack(net.minecraft.world.item.Items.DIRT, 1)
+                ),
+                new ItemStack(net.minecraft.world.item.Items.LEATHER, 1), 3, Integer.MAX_VALUE));
+        TIER_3_TRADES.add(new TradeOffer(
+                List.of(
+                        new ItemStack(net.minecraft.world.item.Items.DIRT, 1),
+                        new ItemStack(net.minecraft.world.item.Items.ROTTEN_FLESH, 10)
+                ),
+                new ItemStack(net.minecraft.world.item.Items.LEATHER, 1), 3, Integer.MAX_VALUE));
+
+        // 4. Sapling + Apple to Golden Nugget - Woodland value
+        // Creating trades for different sapling types
+        TIER_3_TRADES.add(new TradeOffer(
+                List.of(
+                        new ItemStack(net.minecraft.world.item.Items.OAK_SAPLING, 3),
+                        new ItemStack(net.minecraft.world.item.Items.APPLE, 1)
+                ),
+                new ItemStack(net.minecraft.world.item.Items.GOLD_NUGGET, 1), 3, Integer.MAX_VALUE));
+        TIER_3_TRADES.add(new TradeOffer(
+                List.of(
+                        new ItemStack(net.minecraft.world.item.Items.APPLE, 1),
+                        new ItemStack(net.minecraft.world.item.Items.OAK_SAPLING, 3)
+                ),
+                new ItemStack(net.minecraft.world.item.Items.GOLD_NUGGET, 1), 3, Integer.MAX_VALUE));
+        TIER_3_TRADES.add(new TradeOffer(
+                List.of(
+                        new ItemStack(net.minecraft.world.item.Items.SPRUCE_SAPLING, 3),
+                        new ItemStack(net.minecraft.world.item.Items.APPLE, 1)
+                ),
+                new ItemStack(net.minecraft.world.item.Items.GOLD_NUGGET, 1), 3, Integer.MAX_VALUE));
+        TIER_3_TRADES.add(new TradeOffer(
+                List.of(
+                        new ItemStack(net.minecraft.world.item.Items.APPLE, 1),
+                        new ItemStack(net.minecraft.world.item.Items.SPRUCE_SAPLING, 3)
+                ),
+                new ItemStack(net.minecraft.world.item.Items.GOLD_NUGGET, 1), 3, Integer.MAX_VALUE));
+        TIER_3_TRADES.add(new TradeOffer(
+                List.of(
+                        new ItemStack(net.minecraft.world.item.Items.BIRCH_SAPLING, 3),
+                        new ItemStack(net.minecraft.world.item.Items.APPLE, 1)
+                ),
+                new ItemStack(net.minecraft.world.item.Items.GOLD_NUGGET, 1), 3, Integer.MAX_VALUE));
+        TIER_3_TRADES.add(new TradeOffer(
+                List.of(
+                        new ItemStack(net.minecraft.world.item.Items.APPLE, 1),
+                        new ItemStack(net.minecraft.world.item.Items.BIRCH_SAPLING, 3)
+                ),
+                new ItemStack(net.minecraft.world.item.Items.GOLD_NUGGET, 1), 3, Integer.MAX_VALUE));
+        TIER_3_TRADES.add(new TradeOffer(
+                List.of(
+                        new ItemStack(net.minecraft.world.item.Items.JUNGLE_SAPLING, 3),
+                        new ItemStack(net.minecraft.world.item.Items.APPLE, 1)
+                ),
+                new ItemStack(net.minecraft.world.item.Items.GOLD_NUGGET, 1), 3, Integer.MAX_VALUE));
+        TIER_3_TRADES.add(new TradeOffer(
+                List.of(
+                        new ItemStack(net.minecraft.world.item.Items.APPLE, 1),
+                        new ItemStack(net.minecraft.world.item.Items.JUNGLE_SAPLING, 3)
+                ),
+                new ItemStack(net.minecraft.world.item.Items.GOLD_NUGGET, 1), 3, Integer.MAX_VALUE));
+        TIER_3_TRADES.add(new TradeOffer(
+                List.of(
+                        new ItemStack(net.minecraft.world.item.Items.ACACIA_SAPLING, 3),
+                        new ItemStack(net.minecraft.world.item.Items.APPLE, 1)
+                ),
+                new ItemStack(net.minecraft.world.item.Items.GOLD_NUGGET, 1), 3, Integer.MAX_VALUE));
+        TIER_3_TRADES.add(new TradeOffer(
+                List.of(
+                        new ItemStack(net.minecraft.world.item.Items.APPLE, 1),
+                        new ItemStack(net.minecraft.world.item.Items.ACACIA_SAPLING, 3)
+                ),
+                new ItemStack(net.minecraft.world.item.Items.GOLD_NUGGET, 1), 3, Integer.MAX_VALUE));
+        TIER_3_TRADES.add(new TradeOffer(
+                List.of(
+                        new ItemStack(net.minecraft.world.item.Items.DARK_OAK_SAPLING, 3),
+                        new ItemStack(net.minecraft.world.item.Items.APPLE, 1)
+                ),
+                new ItemStack(net.minecraft.world.item.Items.GOLD_NUGGET, 1), 3, Integer.MAX_VALUE));
+        TIER_3_TRADES.add(new TradeOffer(
+                List.of(
+                        new ItemStack(net.minecraft.world.item.Items.APPLE, 1),
+                        new ItemStack(net.minecraft.world.item.Items.DARK_OAK_SAPLING, 3)
+                ),
+                new ItemStack(net.minecraft.world.item.Items.GOLD_NUGGET, 1), 3, Integer.MAX_VALUE));
+        TIER_3_TRADES.add(new TradeOffer(
+                List.of(
+                        new ItemStack(net.minecraft.world.item.Items.MANGROVE_PROPAGULE, 3),
+                        new ItemStack(net.minecraft.world.item.Items.APPLE, 1)
+                ),
+                new ItemStack(net.minecraft.world.item.Items.GOLD_NUGGET, 1), 3, Integer.MAX_VALUE));
+        TIER_3_TRADES.add(new TradeOffer(
+                List.of(
+                        new ItemStack(net.minecraft.world.item.Items.APPLE, 1),
+                        new ItemStack(net.minecraft.world.item.Items.MANGROVE_PROPAGULE, 3)
+                ),
+                new ItemStack(net.minecraft.world.item.Items.GOLD_NUGGET, 1), 3, Integer.MAX_VALUE));
+
+        // 5. Torch + Flint + Gravel to Arrows - Combat utility
+        TIER_3_TRADES.add(new TradeOffer(
+                List.of(
+                        new ItemStack(net.minecraft.world.item.Items.TORCH, 2),
+                        new ItemStack(net.minecraft.world.item.Items.FLINT, 2),
+                        new ItemStack(net.minecraft.world.item.Items.GRAVEL, 1)
+                ),
+                new ItemStack(net.minecraft.world.item.Items.ARROW, 4), 3, Integer.MAX_VALUE));
+        // (No order-independence for 3-input trades for now)
+
+        // 6. Copper Ingot + Charcoal to Lightning Rod - Thematic + harmless
+        TIER_3_TRADES.add(new TradeOffer(
+                List.of(
+                        new ItemStack(net.minecraft.world.item.Items.COPPER_INGOT, 1),
+                        new ItemStack(net.minecraft.world.item.Items.CHARCOAL, 1)
+                ),
+                new ItemStack(net.minecraft.world.item.Items.LIGHTNING_ROD, 1), 3, Integer.MAX_VALUE));
+        TIER_3_TRADES.add(new TradeOffer(
+                List.of(
+                        new ItemStack(net.minecraft.world.item.Items.CHARCOAL, 1),
+                        new ItemStack(net.minecraft.world.item.Items.COPPER_INGOT, 1)
+                ),
+                new ItemStack(net.minecraft.world.item.Items.LIGHTNING_ROD, 1), 3, Integer.MAX_VALUE));
+
+        // 7. Sand + Glass Pane to Stained Glass Block - Cosmetic value
+        TIER_3_TRADES.add(new TradeOffer(
+                List.of(
+                        new ItemStack(net.minecraft.world.item.Items.SAND, 3),
+                        new ItemStack(net.minecraft.world.item.Items.GLASS_PANE, 1)
+                ),
+                new ItemStack(net.minecraft.world.item.Items.BLUE_STAINED_GLASS, 1), 3, Integer.MAX_VALUE));
+        TIER_3_TRADES.add(new TradeOffer(
+                List.of(
+                        new ItemStack(net.minecraft.world.item.Items.GLASS_PANE, 1),
+                        new ItemStack(net.minecraft.world.item.Items.SAND, 3)
+                ),
+                new ItemStack(net.minecraft.world.item.Items.BLUE_STAINED_GLASS, 1), 3, Integer.MAX_VALUE));
+
+        // 8. Rotten Flesh + Gravel to Compass - Replaces map/Sugar Cane
+        TIER_3_TRADES.add(new TradeOffer(
+                List.of(
+                        new ItemStack(net.minecraft.world.item.Items.ROTTEN_FLESH, 8),
+                        new ItemStack(net.minecraft.world.item.Items.GRAVEL, 2)
+                ),
+                new ItemStack(net.minecraft.world.item.Items.COMPASS, 1), 3, Integer.MAX_VALUE));
+        TIER_3_TRADES.add(new TradeOffer(
+                List.of(
+                        new ItemStack(net.minecraft.world.item.Items.GRAVEL, 2),
+                        new ItemStack(net.minecraft.world.item.Items.ROTTEN_FLESH, 8)
+                ),
+                new ItemStack(net.minecraft.world.item.Items.COMPASS, 1), 3, Integer.MAX_VALUE));
+
+        // 9. Flint + Stick to Crossbow - Replaces book; range reward
+        TIER_3_TRADES.add(new TradeOffer(
+                List.of(
+                        new ItemStack(net.minecraft.world.item.Items.FLINT, 6),
+                        new ItemStack(net.minecraft.world.item.Items.STICK, 3)
+                ),
+                new ItemStack(net.minecraft.world.item.Items.CROSSBOW, 1), 3, Integer.MAX_VALUE));
+        TIER_3_TRADES.add(new TradeOffer(
+                List.of(
+                        new ItemStack(net.minecraft.world.item.Items.STICK, 3),
+                        new ItemStack(net.minecraft.world.item.Items.FLINT, 6)
+                ),
+                new ItemStack(net.minecraft.world.item.Items.CROSSBOW, 1), 3, Integer.MAX_VALUE));
+
+        // Tier 2: Mid-game resources and transitions
+        // 1. Sand + Charcoal to Glass - Early access to decorative/light blocks
+        TIER_2_TRADES.add(new TradeOffer(
+                List.of(
+                        new ItemStack(net.minecraft.world.item.Items.SAND, 1),
+                        new ItemStack(net.minecraft.world.item.Items.CHARCOAL, 1)
+                ),
+                new ItemStack(net.minecraft.world.item.Items.GLASS, 1), 2, Integer.MAX_VALUE));
+        TIER_2_TRADES.add(new TradeOffer(
+                List.of(
+                        new ItemStack(net.minecraft.world.item.Items.CHARCOAL, 1),
+                        new ItemStack(net.minecraft.world.item.Items.SAND, 1)
+                ),
+                new ItemStack(net.minecraft.world.item.Items.GLASS, 1), 2, Integer.MAX_VALUE));
+
+        // 2. Charcoal to Coal - Transition fuel, introduces ore equivalency
+        TIER_2_TRADES.add(new TradeOffer(List.of(new ItemStack(net.minecraft.world.item.Items.CHARCOAL, 4)), new ItemStack(net.minecraft.world.item.Items.COAL, 1), 2, Integer.MAX_VALUE));
+
+        // 3. Stone Tools to Iron Nugget - Soft incentive to recycle tools, aligns with T3
+        TIER_2_TRADES.add(new TradeOffer(List.of(new ItemStack(net.minecraft.world.item.Items.STONE_PICKAXE, 4)), new ItemStack(net.minecraft.world.item.Items.IRON_NUGGET, 1), 2, Integer.MAX_VALUE));
+        TIER_2_TRADES.add(new TradeOffer(List.of(new ItemStack(net.minecraft.world.item.Items.STONE_AXE, 4)), new ItemStack(net.minecraft.world.item.Items.IRON_NUGGET, 1), 2, Integer.MAX_VALUE));
+        TIER_2_TRADES.add(new TradeOffer(List.of(new ItemStack(net.minecraft.world.item.Items.STONE_SHOVEL, 4)), new ItemStack(net.minecraft.world.item.Items.IRON_NUGGET, 1), 2, Integer.MAX_VALUE));
+        TIER_2_TRADES.add(new TradeOffer(List.of(new ItemStack(net.minecraft.world.item.Items.STONE_HOE, 4)), new ItemStack(net.minecraft.world.item.Items.IRON_NUGGET, 1), 2, Integer.MAX_VALUE));
+
+        // 4. Flint to Arrow Bundle - Preps player for ranged play, reduces grind
+        TIER_2_TRADES.add(new TradeOffer(List.of(new ItemStack(net.minecraft.world.item.Items.FLINT, 6)), new ItemStack(net.minecraft.world.item.Items.ARROW, 4), 2, Integer.MAX_VALUE));
+
+        // 5. Rotten Flesh to Leather - Offers alternative to cow farming
+        TIER_2_TRADES.add(new TradeOffer(List.of(new ItemStack(net.minecraft.world.item.Items.ROTTEN_FLESH, 10)), new ItemStack(net.minecraft.world.item.Items.LEATHER, 1), 2, Integer.MAX_VALUE));
+
+        // 6. Wheat Seeds to Bone Meal - Adds farming conversion loop
+        TIER_2_TRADES.add(new TradeOffer(List.of(new ItemStack(net.minecraft.world.item.Items.WHEAT_SEEDS, 8)), new ItemStack(net.minecraft.world.item.Items.BONE_MEAL, 1), 2, Integer.MAX_VALUE));
+
+        // 7. Saplings to Apple - Rare apple recycling for food/gold
+        TIER_2_TRADES.add(new TradeOffer(List.of(new ItemStack(net.minecraft.world.item.Items.OAK_SAPLING, 6)), new ItemStack(net.minecraft.world.item.Items.APPLE, 1), 2, Integer.MAX_VALUE));
+        TIER_2_TRADES.add(new TradeOffer(List.of(new ItemStack(net.minecraft.world.item.Items.SPRUCE_SAPLING, 6)), new ItemStack(net.minecraft.world.item.Items.APPLE, 1), 2, Integer.MAX_VALUE));
+        TIER_2_TRADES.add(new TradeOffer(List.of(new ItemStack(net.minecraft.world.item.Items.BIRCH_SAPLING, 6)), new ItemStack(net.minecraft.world.item.Items.APPLE, 1), 2, Integer.MAX_VALUE));
+        TIER_2_TRADES.add(new TradeOffer(List.of(new ItemStack(net.minecraft.world.item.Items.JUNGLE_SAPLING, 6)), new ItemStack(net.minecraft.world.item.Items.APPLE, 1), 2, Integer.MAX_VALUE));
+        TIER_2_TRADES.add(new TradeOffer(List.of(new ItemStack(net.minecraft.world.item.Items.ACACIA_SAPLING, 6)), new ItemStack(net.minecraft.world.item.Items.APPLE, 1), 2, Integer.MAX_VALUE));
+        TIER_2_TRADES.add(new TradeOffer(List.of(new ItemStack(net.minecraft.world.item.Items.DARK_OAK_SAPLING, 6)), new ItemStack(net.minecraft.world.item.Items.APPLE, 1), 2, Integer.MAX_VALUE));
+        TIER_2_TRADES.add(new TradeOffer(List.of(new ItemStack(net.minecraft.world.item.Items.MANGROVE_PROPAGULE, 6)), new ItemStack(net.minecraft.world.item.Items.APPLE, 1), 2, Integer.MAX_VALUE));
+
         // Tier 1: Early game resource exchanges
         // 1. Dirt to Gravel - Trade bulk dirt for early flint use
         TIER_1_TRADES.add(new TradeOffer(List.of(new ItemStack(net.minecraft.world.item.Items.DIRT, 8)), new ItemStack(net.minecraft.world.item.Items.GRAVEL, 1), 1, Integer.MAX_VALUE));
@@ -70,280 +345,6 @@ public class TradeManager {
         // 10. Oak Leaves to Stick - Encourages shearing/gathering leaves
         TIER_1_TRADES.add(new TradeOffer(List.of(new ItemStack(net.minecraft.world.item.Items.OAK_LEAVES, 4)), new ItemStack(net.minecraft.world.item.Items.STICK, 1), 1, Integer.MAX_VALUE));
 
-        // Tier 2: Mid-game resources and transitions
-        // 1. Sand + Charcoal to Glass - Early access to decorative/light blocks
-        TIER_2_TRADES.add(new TradeOffer(
-                List.of(
-                    new ItemStack(net.minecraft.world.item.Items.SAND, 1),
-                    new ItemStack(net.minecraft.world.item.Items.CHARCOAL, 1)
-                ),
-                new ItemStack(net.minecraft.world.item.Items.GLASS, 1), 2, Integer.MAX_VALUE));
-        TIER_2_TRADES.add(new TradeOffer(
-                List.of(
-                    new ItemStack(net.minecraft.world.item.Items.CHARCOAL, 1),
-                    new ItemStack(net.minecraft.world.item.Items.SAND, 1)
-                ),
-                new ItemStack(net.minecraft.world.item.Items.GLASS, 1), 2, Integer.MAX_VALUE));
-
-        // 2. Charcoal to Coal - Transition fuel, introduces ore equivalency
-        TIER_2_TRADES.add(new TradeOffer(List.of(new ItemStack(net.minecraft.world.item.Items.CHARCOAL, 4)), new ItemStack(net.minecraft.world.item.Items.COAL, 1), 2, Integer.MAX_VALUE));
-
-        // 3. Stone Tools to Iron Nugget - Soft incentive to recycle tools, aligns with T3
-        TIER_2_TRADES.add(new TradeOffer(List.of(new ItemStack(net.minecraft.world.item.Items.STONE_PICKAXE, 4)), new ItemStack(net.minecraft.world.item.Items.IRON_NUGGET, 1), 2, Integer.MAX_VALUE));
-        TIER_2_TRADES.add(new TradeOffer(List.of(new ItemStack(net.minecraft.world.item.Items.STONE_AXE, 4)), new ItemStack(net.minecraft.world.item.Items.IRON_NUGGET, 1), 2, Integer.MAX_VALUE));
-        TIER_2_TRADES.add(new TradeOffer(List.of(new ItemStack(net.minecraft.world.item.Items.STONE_SHOVEL, 4)), new ItemStack(net.minecraft.world.item.Items.IRON_NUGGET, 1), 2, Integer.MAX_VALUE));
-        TIER_2_TRADES.add(new TradeOffer(List.of(new ItemStack(net.minecraft.world.item.Items.STONE_HOE, 4)), new ItemStack(net.minecraft.world.item.Items.IRON_NUGGET, 1), 2, Integer.MAX_VALUE));
-
-        // 4. Flint to Arrow Bundle - Preps player for ranged play, reduces grind
-        TIER_2_TRADES.add(new TradeOffer(List.of(new ItemStack(net.minecraft.world.item.Items.FLINT, 6)), new ItemStack(net.minecraft.world.item.Items.ARROW, 4), 2, Integer.MAX_VALUE));
-
-        // 5. Rotten Flesh to Leather - Offers alternative to cow farming
-        TIER_2_TRADES.add(new TradeOffer(List.of(new ItemStack(net.minecraft.world.item.Items.ROTTEN_FLESH, 10)), new ItemStack(net.minecraft.world.item.Items.LEATHER, 1), 2, Integer.MAX_VALUE));
-
-        // 6. Wheat Seeds to Bone Meal - Adds farming conversion loop
-        TIER_2_TRADES.add(new TradeOffer(List.of(new ItemStack(net.minecraft.world.item.Items.WHEAT_SEEDS, 8)), new ItemStack(net.minecraft.world.item.Items.BONE_MEAL, 1), 2, Integer.MAX_VALUE));
-
-        // 7. Saplings to Apple - Rare apple recycling for food/gold
-        TIER_2_TRADES.add(new TradeOffer(List.of(new ItemStack(net.minecraft.world.item.Items.OAK_SAPLING, 6)), new ItemStack(net.minecraft.world.item.Items.APPLE, 1), 2, Integer.MAX_VALUE));
-        TIER_2_TRADES.add(new TradeOffer(List.of(new ItemStack(net.minecraft.world.item.Items.SPRUCE_SAPLING, 6)), new ItemStack(net.minecraft.world.item.Items.APPLE, 1), 2, Integer.MAX_VALUE));
-        TIER_2_TRADES.add(new TradeOffer(List.of(new ItemStack(net.minecraft.world.item.Items.BIRCH_SAPLING, 6)), new ItemStack(net.minecraft.world.item.Items.APPLE, 1), 2, Integer.MAX_VALUE));
-        TIER_2_TRADES.add(new TradeOffer(List.of(new ItemStack(net.minecraft.world.item.Items.JUNGLE_SAPLING, 6)), new ItemStack(net.minecraft.world.item.Items.APPLE, 1), 2, Integer.MAX_VALUE));
-        TIER_2_TRADES.add(new TradeOffer(List.of(new ItemStack(net.minecraft.world.item.Items.ACACIA_SAPLING, 6)), new ItemStack(net.minecraft.world.item.Items.APPLE, 1), 2, Integer.MAX_VALUE));
-        TIER_2_TRADES.add(new TradeOffer(List.of(new ItemStack(net.minecraft.world.item.Items.DARK_OAK_SAPLING, 6)), new ItemStack(net.minecraft.world.item.Items.APPLE, 1), 2, Integer.MAX_VALUE));
-        TIER_2_TRADES.add(new TradeOffer(List.of(new ItemStack(net.minecraft.world.item.Items.MANGROVE_PROPAGULE, 6)), new ItemStack(net.minecraft.world.item.Items.APPLE, 1), 2, Integer.MAX_VALUE));
-
-        // Tier 3: Late game progression and advanced crafting alternatives
-        // 1. Charcoal + Gravel to Copper Ingot - Renewable to ore pathway
-        TIER_3_TRADES.add(new TradeOffer(
-            List.of(
-                new ItemStack(net.minecraft.world.item.Items.CHARCOAL, 12),
-                new ItemStack(net.minecraft.world.item.Items.GRAVEL, 4)
-            ),
-            new ItemStack(net.minecraft.world.item.Items.COPPER_INGOT, 1), 3, Integer.MAX_VALUE));
-        TIER_3_TRADES.add(new TradeOffer(
-            List.of(
-                new ItemStack(net.minecraft.world.item.Items.GRAVEL, 4),
-                new ItemStack(net.minecraft.world.item.Items.CHARCOAL, 12)
-            ),
-            new ItemStack(net.minecraft.world.item.Items.COPPER_INGOT, 1), 3, Integer.MAX_VALUE));
-
-        // 2. Stone Tools + Flint to Iron Nugget - Tool recycling path
-        // Creating four trades for the different stone tools
-        TIER_3_TRADES.add(new TradeOffer(
-            List.of(
-                new ItemStack(net.minecraft.world.item.Items.STONE_PICKAXE, 6),
-                new ItemStack(net.minecraft.world.item.Items.FLINT, 3)
-            ),
-            new ItemStack(net.minecraft.world.item.Items.IRON_NUGGET, 1), 3, Integer.MAX_VALUE));
-        TIER_3_TRADES.add(new TradeOffer(
-            List.of(
-                new ItemStack(net.minecraft.world.item.Items.FLINT, 3),
-                new ItemStack(net.minecraft.world.item.Items.STONE_PICKAXE, 6)
-            ),
-            new ItemStack(net.minecraft.world.item.Items.IRON_NUGGET, 1), 3, Integer.MAX_VALUE));
-        TIER_3_TRADES.add(new TradeOffer(
-            List.of(
-                new ItemStack(net.minecraft.world.item.Items.STONE_AXE, 6),
-                new ItemStack(net.minecraft.world.item.Items.FLINT, 3)
-            ),
-            new ItemStack(net.minecraft.world.item.Items.IRON_NUGGET, 1), 3, Integer.MAX_VALUE));
-        TIER_3_TRADES.add(new TradeOffer(
-            List.of(
-                new ItemStack(net.minecraft.world.item.Items.FLINT, 3),
-                new ItemStack(net.minecraft.world.item.Items.STONE_AXE, 6)
-            ),
-            new ItemStack(net.minecraft.world.item.Items.IRON_NUGGET, 1), 3, Integer.MAX_VALUE));
-        TIER_3_TRADES.add(new TradeOffer(
-            List.of(
-                new ItemStack(net.minecraft.world.item.Items.STONE_SHOVEL, 6),
-                new ItemStack(net.minecraft.world.item.Items.FLINT, 3)
-            ),
-            new ItemStack(net.minecraft.world.item.Items.IRON_NUGGET, 1), 3, Integer.MAX_VALUE));
-        TIER_3_TRADES.add(new TradeOffer(
-            List.of(
-                new ItemStack(net.minecraft.world.item.Items.FLINT, 3),
-                new ItemStack(net.minecraft.world.item.Items.STONE_SHOVEL, 6)
-            ),
-            new ItemStack(net.minecraft.world.item.Items.IRON_NUGGET, 1), 3, Integer.MAX_VALUE));
-        TIER_3_TRADES.add(new TradeOffer(
-            List.of(
-                new ItemStack(net.minecraft.world.item.Items.STONE_HOE, 6),
-                new ItemStack(net.minecraft.world.item.Items.FLINT, 3)
-            ),
-            new ItemStack(net.minecraft.world.item.Items.IRON_NUGGET, 1), 3, Integer.MAX_VALUE));
-        TIER_3_TRADES.add(new TradeOffer(
-            List.of(
-                new ItemStack(net.minecraft.world.item.Items.FLINT, 3),
-                new ItemStack(net.minecraft.world.item.Items.STONE_HOE, 6)
-            ),
-            new ItemStack(net.minecraft.world.item.Items.IRON_NUGGET, 1), 3, Integer.MAX_VALUE));
-
-        // 3. Rotten Flesh + Dirt to Leather - Farming alternative
-        TIER_3_TRADES.add(new TradeOffer(
-            List.of(
-                new ItemStack(net.minecraft.world.item.Items.ROTTEN_FLESH, 10),
-                new ItemStack(net.minecraft.world.item.Items.DIRT, 1)
-            ),
-            new ItemStack(net.minecraft.world.item.Items.LEATHER, 1), 3, Integer.MAX_VALUE));
-        TIER_3_TRADES.add(new TradeOffer(
-            List.of(
-                new ItemStack(net.minecraft.world.item.Items.DIRT, 1),
-                new ItemStack(net.minecraft.world.item.Items.ROTTEN_FLESH, 10)
-            ),
-            new ItemStack(net.minecraft.world.item.Items.LEATHER, 1), 3, Integer.MAX_VALUE));
-
-        // 4. Sapling + Apple to Golden Nugget - Woodland value
-        // Creating trades for different sapling types
-        TIER_3_TRADES.add(new TradeOffer(
-            List.of(
-                new ItemStack(net.minecraft.world.item.Items.OAK_SAPLING, 3),
-                new ItemStack(net.minecraft.world.item.Items.APPLE, 1)
-            ),
-            new ItemStack(net.minecraft.world.item.Items.GOLD_NUGGET, 1), 3, Integer.MAX_VALUE));
-        TIER_3_TRADES.add(new TradeOffer(
-            List.of(
-                new ItemStack(net.minecraft.world.item.Items.APPLE, 1),
-                new ItemStack(net.minecraft.world.item.Items.OAK_SAPLING, 3)
-            ),
-            new ItemStack(net.minecraft.world.item.Items.GOLD_NUGGET, 1), 3, Integer.MAX_VALUE));
-        TIER_3_TRADES.add(new TradeOffer(
-            List.of(
-                new ItemStack(net.minecraft.world.item.Items.SPRUCE_SAPLING, 3),
-                new ItemStack(net.minecraft.world.item.Items.APPLE, 1)
-            ),
-            new ItemStack(net.minecraft.world.item.Items.GOLD_NUGGET, 1), 3, Integer.MAX_VALUE));
-        TIER_3_TRADES.add(new TradeOffer(
-            List.of(
-                new ItemStack(net.minecraft.world.item.Items.APPLE, 1),
-                new ItemStack(net.minecraft.world.item.Items.SPRUCE_SAPLING, 3)
-            ),
-            new ItemStack(net.minecraft.world.item.Items.GOLD_NUGGET, 1), 3, Integer.MAX_VALUE));
-        TIER_3_TRADES.add(new TradeOffer(
-            List.of(
-                new ItemStack(net.minecraft.world.item.Items.BIRCH_SAPLING, 3),
-                new ItemStack(net.minecraft.world.item.Items.APPLE, 1)
-            ),
-            new ItemStack(net.minecraft.world.item.Items.GOLD_NUGGET, 1), 3, Integer.MAX_VALUE));
-        TIER_3_TRADES.add(new TradeOffer(
-            List.of(
-                new ItemStack(net.minecraft.world.item.Items.APPLE, 1),
-                new ItemStack(net.minecraft.world.item.Items.BIRCH_SAPLING, 3)
-            ),
-            new ItemStack(net.minecraft.world.item.Items.GOLD_NUGGET, 1), 3, Integer.MAX_VALUE));
-        TIER_3_TRADES.add(new TradeOffer(
-            List.of(
-                new ItemStack(net.minecraft.world.item.Items.JUNGLE_SAPLING, 3),
-                new ItemStack(net.minecraft.world.item.Items.APPLE, 1)
-            ),
-            new ItemStack(net.minecraft.world.item.Items.GOLD_NUGGET, 1), 3, Integer.MAX_VALUE));
-        TIER_3_TRADES.add(new TradeOffer(
-            List.of(
-                new ItemStack(net.minecraft.world.item.Items.APPLE, 1),
-                new ItemStack(net.minecraft.world.item.Items.JUNGLE_SAPLING, 3)
-            ),
-            new ItemStack(net.minecraft.world.item.Items.GOLD_NUGGET, 1), 3, Integer.MAX_VALUE));
-        TIER_3_TRADES.add(new TradeOffer(
-            List.of(
-                new ItemStack(net.minecraft.world.item.Items.ACACIA_SAPLING, 3),
-                new ItemStack(net.minecraft.world.item.Items.APPLE, 1)
-            ),
-            new ItemStack(net.minecraft.world.item.Items.GOLD_NUGGET, 1), 3, Integer.MAX_VALUE));
-        TIER_3_TRADES.add(new TradeOffer(
-            List.of(
-                new ItemStack(net.minecraft.world.item.Items.APPLE, 1),
-                new ItemStack(net.minecraft.world.item.Items.ACACIA_SAPLING, 3)
-            ),
-            new ItemStack(net.minecraft.world.item.Items.GOLD_NUGGET, 1), 3, Integer.MAX_VALUE));
-        TIER_3_TRADES.add(new TradeOffer(
-            List.of(
-                new ItemStack(net.minecraft.world.item.Items.DARK_OAK_SAPLING, 3),
-                new ItemStack(net.minecraft.world.item.Items.APPLE, 1)
-            ),
-            new ItemStack(net.minecraft.world.item.Items.GOLD_NUGGET, 1), 3, Integer.MAX_VALUE));
-        TIER_3_TRADES.add(new TradeOffer(
-            List.of(
-                new ItemStack(net.minecraft.world.item.Items.APPLE, 1),
-                new ItemStack(net.minecraft.world.item.Items.DARK_OAK_SAPLING, 3)
-            ),
-            new ItemStack(net.minecraft.world.item.Items.GOLD_NUGGET, 1), 3, Integer.MAX_VALUE));
-        TIER_3_TRADES.add(new TradeOffer(
-            List.of(
-                new ItemStack(net.minecraft.world.item.Items.MANGROVE_PROPAGULE, 3),
-                new ItemStack(net.minecraft.world.item.Items.APPLE, 1)
-            ),
-            new ItemStack(net.minecraft.world.item.Items.GOLD_NUGGET, 1), 3, Integer.MAX_VALUE));
-        TIER_3_TRADES.add(new TradeOffer(
-            List.of(
-                new ItemStack(net.minecraft.world.item.Items.APPLE, 1),
-                new ItemStack(net.minecraft.world.item.Items.MANGROVE_PROPAGULE, 3)
-            ),
-            new ItemStack(net.minecraft.world.item.Items.GOLD_NUGGET, 1), 3, Integer.MAX_VALUE));
-
-        // 5. Torch + Flint + Gravel to Arrows - Combat utility
-        TIER_3_TRADES.add(new TradeOffer(
-            List.of(
-                new ItemStack(net.minecraft.world.item.Items.TORCH, 2),
-                new ItemStack(net.minecraft.world.item.Items.FLINT, 2),
-                new ItemStack(net.minecraft.world.item.Items.GRAVEL, 1)
-            ),
-            new ItemStack(net.minecraft.world.item.Items.ARROW, 4), 3, Integer.MAX_VALUE));
-        // (No order-independence for 3-input trades for now)
-
-        // 6. Copper Ingot + Charcoal to Lightning Rod - Thematic + harmless
-        TIER_3_TRADES.add(new TradeOffer(
-            List.of(
-                new ItemStack(net.minecraft.world.item.Items.COPPER_INGOT, 1),
-                new ItemStack(net.minecraft.world.item.Items.CHARCOAL, 1)
-            ),
-            new ItemStack(net.minecraft.world.item.Items.LIGHTNING_ROD, 1), 3, Integer.MAX_VALUE));
-        TIER_3_TRADES.add(new TradeOffer(
-            List.of(
-                new ItemStack(net.minecraft.world.item.Items.CHARCOAL, 1),
-                new ItemStack(net.minecraft.world.item.Items.COPPER_INGOT, 1)
-            ),
-            new ItemStack(net.minecraft.world.item.Items.LIGHTNING_ROD, 1), 3, Integer.MAX_VALUE));
-
-        // 7. Sand + Glass Pane to Stained Glass Block - Cosmetic value
-        TIER_3_TRADES.add(new TradeOffer(
-            List.of(
-                new ItemStack(net.minecraft.world.item.Items.SAND, 3),
-                new ItemStack(net.minecraft.world.item.Items.GLASS_PANE, 1)
-            ),
-            new ItemStack(net.minecraft.world.item.Items.BLUE_STAINED_GLASS, 1), 3, Integer.MAX_VALUE));
-        TIER_3_TRADES.add(new TradeOffer(
-            List.of(
-                new ItemStack(net.minecraft.world.item.Items.GLASS_PANE, 1),
-                new ItemStack(net.minecraft.world.item.Items.SAND, 3)
-            ),
-            new ItemStack(net.minecraft.world.item.Items.BLUE_STAINED_GLASS, 1), 3, Integer.MAX_VALUE));
-
-        // 8. Rotten Flesh + Gravel to Compass - Replaces map/Sugar Cane
-        TIER_3_TRADES.add(new TradeOffer(
-            List.of(
-                new ItemStack(net.minecraft.world.item.Items.ROTTEN_FLESH, 8),
-                new ItemStack(net.minecraft.world.item.Items.GRAVEL, 2)
-            ),
-            new ItemStack(net.minecraft.world.item.Items.COMPASS, 1), 3, Integer.MAX_VALUE));
-        TIER_3_TRADES.add(new TradeOffer(
-            List.of(
-                new ItemStack(net.minecraft.world.item.Items.GRAVEL, 2),
-                new ItemStack(net.minecraft.world.item.Items.ROTTEN_FLESH, 8)
-            ),
-            new ItemStack(net.minecraft.world.item.Items.COMPASS, 1), 3, Integer.MAX_VALUE));
-
-        // 9. Flint + Stick to Crossbow - Replaces book; range reward
-        TIER_3_TRADES.add(new TradeOffer(
-            List.of(
-                new ItemStack(net.minecraft.world.item.Items.FLINT, 6),
-                new ItemStack(net.minecraft.world.item.Items.STICK, 3)
-            ),
-            new ItemStack(net.minecraft.world.item.Items.CROSSBOW, 1), 3, Integer.MAX_VALUE));
-        TIER_3_TRADES.add(new TradeOffer(
-            List.of(
-                new ItemStack(net.minecraft.world.item.Items.STICK, 3),
-                new ItemStack(net.minecraft.world.item.Items.FLINT, 6)
-            ),
-            new ItemStack(net.minecraft.world.item.Items.CROSSBOW, 1), 3, Integer.MAX_VALUE));
     }
 
     public static List<TradeOffer> getTradesForTier(int tier) {
