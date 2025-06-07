@@ -2,7 +2,7 @@ package com.funcation.blocks.entity;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.world.ContainerHelper;
+import net.minecraft.nbt.Tag;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -19,10 +19,8 @@ import net.minecraft.world.inventory.ContainerData;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
+
 import com.funcation.data.TradeManager;
 import com.funcation.player.PlayerTradeProgress;
 
@@ -70,7 +68,7 @@ public class TradeBlockEntity extends BlockEntity implements MenuProvider {
      * Protected constructor for test use, allows bypassing registry.
      */
     protected TradeBlockEntity(@Nullable BlockEntityType<?> type, BlockPos pos, BlockState state) {
-        super(type, pos, state);
+        super(Objects.requireNonNull(type), pos, state);
     }
 
     public SimpleContainer getInventory() {
@@ -96,22 +94,6 @@ public class TradeBlockEntity extends BlockEntity implements MenuProvider {
     }
 
     /**
-     * Returns the number of trades completed for this block entity.
-     * Used for progression and tier unlocking.
-     */
-    public int getTotalTradesCompleted() {
-        return this.tradesCompleted;
-    }
-
-    /**
-     * Resets the trade completion counter (for testing or admin use).
-     */
-    public void resetTradesCompleted() {
-        this.tradesCompleted = 0;
-        markDirtyAndSync();
-    }
-
-    /**
      * Optimized: Only call setChanged() and send updates when state actually changes.
      * Use this method after any trade or inventory mutation.
      */
@@ -123,7 +105,7 @@ public class TradeBlockEntity extends BlockEntity implements MenuProvider {
     }
 
     @Override
-    public void load(CompoundTag pTag) {
+    public void load(@NotNull CompoundTag pTag) {
         super.load(pTag);
         // Load the inventory items from the compound tag
         if (pTag.contains("Items")) {
@@ -140,17 +122,14 @@ public class TradeBlockEntity extends BlockEntity implements MenuProvider {
             uniqueTradesPerTier.clear();
             for (String key : uniqueTag.getAllKeys()) {
                 int tier = Integer.parseInt(key);
-                Set<String> trades = new HashSet<>();
-                for (String tradeId : uniqueTag.getList(key, 8).stream().map(t -> t.getAsString()).toList()) {
-                    trades.add(tradeId);
-                }
+                Set<String> trades = new HashSet<>(uniqueTag.getList(key, 8).stream().map(Tag::getAsString).toList());
                 uniqueTradesPerTier.put(tier, trades);
             }
         }
     }
 
     @Override
-    protected void saveAdditional(CompoundTag pTag) {
+    protected void saveAdditional(@NotNull CompoundTag pTag) {
         super.saveAdditional(pTag);
         // Save the inventory items to the compound tag
         pTag.put("Items", inventory.createTag());
@@ -168,7 +147,7 @@ public class TradeBlockEntity extends BlockEntity implements MenuProvider {
     }
 
     @Override
-    public CompoundTag getUpdateTag() {
+    public @NotNull CompoundTag getUpdateTag() {
         // Called when the chunk is sent to the client
         CompoundTag tag = super.getUpdateTag();
         this.saveAdditional(tag);
@@ -190,11 +169,12 @@ public class TradeBlockEntity extends BlockEntity implements MenuProvider {
     @Override
     public void onDataPacket(net.minecraft.network.Connection net, net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket pkt) {
         // Called client-side when a custom update packet is received
+        assert pkt.getTag() != null;
         this.load(pkt.getTag());
     }
 
     @Override
-    public Component getDisplayName() {
+    public @NotNull Component getDisplayName() {
         // TODO: Replace with a translatable component for the block's name
         return Component.literal("Trade Block");
     }
@@ -203,6 +183,7 @@ public class TradeBlockEntity extends BlockEntity implements MenuProvider {
     @Override
     public AbstractContainerMenu createMenu(int pContainerId, @NotNull net.minecraft.world.entity.player.Inventory pPlayerInventory, @NotNull Player pPlayer) {
         // Provide access to this block entity's inventory via ContainerLevelAccess
+        assert this.level != null;
         return new com.funcation.screen.TradeBlockMenu(pContainerId, pPlayerInventory, net.minecraft.world.inventory.ContainerLevelAccess.create(this.level, this.getBlockPos()));
     }
 
@@ -307,10 +288,7 @@ public class TradeBlockEntity extends BlockEntity implements MenuProvider {
         }
         net.minecraft.world.item.ItemStack output = offer.getOutput();
         net.minecraft.world.item.ItemStack outSlot = inventory.getItem(2);
-        if (!outSlot.isEmpty() && (!outSlot.is(output.getItem()) || outSlot.getCount() + output.getCount() > outSlot.getMaxStackSize())) {
-            return false;
-        }
-        return true;
+        return outSlot.isEmpty() || (outSlot.is(output.getItem()) && outSlot.getCount() + output.getCount() <= outSlot.getMaxStackSize());
     }
 
     /**
@@ -361,17 +339,6 @@ public class TradeBlockEntity extends BlockEntity implements MenuProvider {
     }
 
     /**
-     * Record a unique trade for the current tier. Returns true if it was newly added.
-     */
-    public boolean addUniqueTradeForCurrentTier(String tradeId) {
-        int tier = this.currentTier;
-        Set<String> set = uniqueTradesPerTier.computeIfAbsent(tier, k -> new HashSet<>());
-        boolean added = set.add(tradeId);
-        if (added) markDirtyAndSync();
-        return added;
-    }
-
-    /**
      * Returns the number of unique trades completed for the current tier.
      */
     public int getUniqueTradesCompletedForCurrentTier() {
@@ -379,13 +346,6 @@ public class TradeBlockEntity extends BlockEntity implements MenuProvider {
             return uniqueTradesCompletedSynced;
         }
         return uniqueTradesPerTier.getOrDefault(currentTier, java.util.Collections.emptySet()).size();
-    }
-
-    /**
-     * Returns the number of unique trades required for the current tier, using the config.
-     */
-    public int getUniqueTradesRequiredForCurrentTier() {
-        return com.funcation.data.TradeManager.getUniqueTradesRequiredForTier(currentTier);
     }
 
     /**

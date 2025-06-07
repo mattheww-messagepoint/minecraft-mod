@@ -1,12 +1,8 @@
 package com.funcation.data;
 
-import com.funcation.ModConfig;
 import com.funcation.data.trades.TradeOffer;
 import com.funcation.player.PlayerTradeProgress;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.event.config.ModConfigEvent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +18,7 @@ public class TradeManager {
     private static final List<TradeOffer> TIER_3_TRADES = new ArrayList<>();
 
     // Config cache for unique trades required per tier
-    private static List<Integer> uniqueTradesRequiredPerTier = java.util.Arrays.asList(2, 3, 4); // fallback default
+    private static final List<Integer> uniqueTradesRequiredPerTier = java.util.Arrays.asList(2, 3, 4); // fallback default
 
     static {
         // Tier 3: Late game progression and advanced crafting alternatives
@@ -364,12 +360,6 @@ public class TradeManager {
         }
     }
 
-    // Placeholder for progression logic (to be implemented in later tasks)
-    public static boolean canUnlockTier(int currentTier, int tradesCompleted) {
-        // Example: unlock next tier after 5 trades completed
-        return tradesCompleted >= 5;
-    }
-
     /**
      * Unlocks Tier 2 trades if enough Tier 1 trades have been completed.
      * Example: Unlock Tier 2 after 5 Tier 1 trades completed.
@@ -478,7 +468,7 @@ public class TradeManager {
      * If the config is shorter than the tier, the last value is used for all higher tiers.
      */
     public static int getUniqueTradesRequiredForTier(int tier) {
-        if (uniqueTradesRequiredPerTier == null || uniqueTradesRequiredPerTier.isEmpty()) return 1;
+        if (uniqueTradesRequiredPerTier.isEmpty()) return 1;
         int idx = Math.max(0, Math.min(tier - 1, uniqueTradesRequiredPerTier.size() - 1));
         return uniqueTradesRequiredPerTier.get(idx);
     }
