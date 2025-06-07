@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "SCS",
+    "DGD",
+    "SCS"
+  ],
+  "key": {
+    "S": { "item": "minecraft:stone" },
+    "C": { "item": "minecraft:cobblestone" },
+    "D": { "item": "minecraft:dirt" },
+    "G": { "item": "minecraft:gravel" }
+  },
+  "result": {
+    "item": "funcation:trade_block",
+    "count": 1
+  }
+}
+

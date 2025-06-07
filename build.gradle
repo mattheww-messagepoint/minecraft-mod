@@ -138,6 +138,11 @@ dependencies {
     // The group id is ignored when searching -- in this case, it is "blank"
     // implementation fg.deobf("blank:coolmod-${mc_version}:${coolmod_version}")
 
+    // JUnit 5 for unit testing
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.10.2'
+    // Mockito for mocking
+    testImplementation 'org.mockito:mockito-core:5.2.0'
+
     // For more info:
     // http://www.gradle.org/docs/current/userguide/artifact_dependencies_tutorial.html
     // http://www.gradle.org/docs/current/userguide/dependency_management.html
@@ -192,6 +197,16 @@ publishing {
 
 tasks.withType(JavaCompile).configureEach {
     options.encoding = 'UTF-8' // Use the UTF-8 charset for Java compilation
+}
+
+// Configure JUnit Platform for testing
+tasks.withType(Test).configureEach {
+    useJUnitPlatform()
+    testLogging {
+        events "passed", "skipped", "failed" // Log these events
+        showStandardStreams = true // Show standard out and standard error
+        exceptionFormat "full" // Show full exception traces
+    }
 }
 
 // IntelliJ no longer downloads javadocs and sources by default.

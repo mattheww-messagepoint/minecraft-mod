@@ -1,0 +1,14 @@
+{
+  "item.funcation.trade_guide_book": "Trade Guide Book",
+  "item.funcation.trade_guide_book.desc": "A book listing all available trades and their unlock requirements.",
+  "book.funcation.trade_guide.title": "Trade Guide",
+  "book.funcation.trade_guide.author": "Funcation Mod",
+  "book.funcation.trade_guide.intro": "All available trades by tier. Locked trades require progression.\n\nTier headers are shown in blue. Trades are shown in dark gray. Inputs can be in any order unless otherwise noted.",
+  "book.funcation.trade_guide.tier1": "Tier 1 Trades",
+  "book.funcation.trade_guide.tier2": "Tier 2 Trades",
+  "book.funcation.trade_guide.tier3": "Tier 3 Trades",
+  "book.funcation.trade_guide.tier1_cont": "Tier 1 Trades (cont.)",
+  "book.funcation.trade_guide.tier2_cont": "Tier 2 Trades (cont.)",
+  "book.funcation.trade_guide.tier3_cont": "Tier 3 Trades (cont.)"
+}
+

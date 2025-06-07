@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " L ",
+    "P S",
+    "   "
+  ],
+  "key": {
+    "L": { "item": "minecraft:leather" },
+    "P": { "item": "minecraft:oak_planks" },
+    "S": { "item": "minecraft:stick" }
+  },
+  "result": {
+    "item": "funcation:trade_guide_book",
+    "count": 1
+  }
+}

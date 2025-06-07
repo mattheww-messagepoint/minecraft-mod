@@ -1,0 +1,13 @@
+# Configuration file for the Funcation mod
+
+[trade]
+# List of unique trades required to unlock each trade tier.
+# Each value in the list corresponds to a trade tier (starting from tier 1).
+# For example: [2, 3, 4] means:
+#   - Tier 1 requires 2 unique trades to unlock Tier 2
+#   - Tier 2 requires 3 unique trades to unlock Tier 3
+#   - Tier 3 requires 4 unique trades to unlock Tier 4
+# You can increase or decrease the number of unique trades required for each tier by editing this list.
+# Only unique trades (not repeated trades) count toward progression. A trade is considered unique if it has a different TradeOffer (see technical documentation).
+# Changing this value will affect all new and existing worlds after a reload.
+unique_trades_required_per_tier = [2, 3, 4]
