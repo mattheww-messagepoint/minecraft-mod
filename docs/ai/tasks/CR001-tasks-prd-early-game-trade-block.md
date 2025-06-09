@@ -12,12 +12,12 @@
 - `src/main/java/com/funcation/registry/ModBlockEntities.java` - Registry class for block entities.
 - `src/main/java/com/funcation/registry/ModMenuTypes.java` - Registry for menu containers.
 - `src/main/java/com/funcation/events/ModEvents.java` - Event handlers for the mod, including adding the block to starting inventory.
-- `src/main/resources/assets/funcation/textures/block/trade_block.png` - Texture for the trade block.
-- `src/main/resources/assets/funcation/textures/gui/trade_block.png` - GUI texture for trade block interface.
-- `src/main/resources/assets/funcation/models/block/trade_block.json` - Block model for the trade block (cube_all, uses trade_block texture).
-- `src/main/resources/assets/funcation/models/item/trade_block.json` - Item model for the trade block (references block model).
-- `src/main/resources/assets/funcation/blockstates/trade_block.json` - Blockstate definition for the trade block (handles facing directions).
-- `src/main/resources/data/funcation/recipes/trade_block.json` - Crafting recipe for the trade block.
+- `src/main/resources/assets/funcation/trade/textures/block/trade_block.png` - Texture for the trade block.
+- `src/main/resources/assets/funcation/trade/textures/gui/trade_block.png` - GUI texture for trade block interface.
+- `src/main/resources/assets/funcation/trade/models/block/trade_block.json` - Block model for the trade block (cube_all, uses trade_block texture).
+- `src/main/resources/assets/funcation/trade/models/item/trade_block.json` - Item model for the trade block (references block model).
+- `src/main/resources/assets/funcation/trade/blockstates/trade_block.json` - Blockstate definition for the trade block (handles facing directions).
+- `src/main/resources/data/funcation/trade/recipes/trade_block.json` - Crafting recipe for the trade block.
 
 ### Notes
 

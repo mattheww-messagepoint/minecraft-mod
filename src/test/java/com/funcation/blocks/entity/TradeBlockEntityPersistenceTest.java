@@ -1,8 +1,9 @@
 package com.funcation.blocks.entity;
 
-import com.funcation.registry.ModBlockEntities;
-import com.funcation.registry.ModBlocks;
-import com.funcation.registry.ModItems;
+import com.funcation.trade.blocks.entity.TradeBlockEntity;
+import com.funcation.trade.registry.ModBlockEntities;
+import com.funcation.trade.registry.ModBlocks;
+import com.funcation.trade.registry.ModItems;
 import net.minecraft.SharedConstants;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;

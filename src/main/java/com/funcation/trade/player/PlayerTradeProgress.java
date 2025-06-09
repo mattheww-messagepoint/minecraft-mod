@@ -1,4 +1,4 @@
-package com.funcation.player;
+package com.funcation.trade.player;
 
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;

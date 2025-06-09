@@ -1,7 +1,7 @@
-package com.funcation.data;
+package com.funcation.trade.data;
 
-import com.funcation.data.trades.TradeOffer;
-import com.funcation.player.PlayerTradeProgress;
+import com.funcation.trade.data.trades.TradeOffer;
+import com.funcation.trade.player.PlayerTradeProgress;
 import net.minecraft.world.item.ItemStack;
 
 import java.util.ArrayList;
@@ -403,7 +403,7 @@ public class TradeManager {
     }
 
     /**
-     * Checks if a trade would create a resource cycle or infinite loop.
+     * Checks if a trade creates a resource cycle or infinite loop.
      * Prevents cyclical trades (e.g., A->B and B->A with no loss) and infinite resource gain.
      * @param offer The trade offer to validate
      * @return true if the trade is valid (not exploitable), false if it should be blocked

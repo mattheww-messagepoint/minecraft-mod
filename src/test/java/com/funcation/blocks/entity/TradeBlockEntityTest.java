@@ -1,8 +1,9 @@
 package com.funcation.blocks.entity;
 
-import com.funcation.data.TradeManager;
-import com.funcation.data.trades.TradeOffer;
-import com.funcation.player.PlayerTradeProgress;
+import com.funcation.trade.blocks.entity.TradeBlockEntity;
+import com.funcation.trade.data.TradeManager;
+import com.funcation.trade.data.trades.TradeOffer;
+import com.funcation.trade.player.PlayerTradeProgress;
 import net.minecraft.SharedConstants;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.Bootstrap;

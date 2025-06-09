@@ -1,7 +1,11 @@
-package com.funcation.screen;
+package com.funcation.trade.screen;
 
-import com.funcation.blocks.entity.TradeBlockEntity;
-import com.funcation.registry.ModBlocks;
+import com.funcation.trade.blocks.entity.TradeBlockEntity;
+import com.funcation.trade.data.TradeManager;
+import com.funcation.trade.data.trades.TradeOffer;
+import com.funcation.trade.player.PlayerTradeProgress;
+import com.funcation.trade.registry.ModBlocks;
+import com.funcation.trade.registry.ModMenuTypes;
 import net.minecraft.world.Container;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -9,12 +13,6 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerLevelAccess;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
-import net.minecraft.core.BlockPos;
-import net.minecraft.world.MenuProvider;
-import net.minecraft.world.inventory.MenuType;
-import net.minecraftforge.registries.ObjectHolder;
-import com.funcation.registry.ModMenuTypes;
 
 /**
  * TradeBlockMenu - Container class for the Trade Block UI.
@@ -62,10 +60,10 @@ public class TradeBlockMenu extends AbstractContainerMenu {
                 if (blockEntity != null && !player.level().isClientSide) {
                     int tier = blockEntity.getCurrentTier();
                     // Only search trades for the current tier
-                    for (com.funcation.data.trades.TradeOffer offer : com.funcation.data.TradeManager.getTradesForTier(tier)) {
+                    for (TradeOffer offer : TradeManager.getTradesForTier(tier)) {
                         if (blockEntity.isValidTradeInput(offer)) {
                             System.out.println("[TRADE DEBUG] Matched offer: " + offer + " for tier: " + tier);
-                            blockEntity.processTrade(offer, player, com.funcation.data.TradeManager.getUniqueTradesRequiredPerTierConfig(), com.funcation.player.PlayerTradeProgress.get(player));
+                            blockEntity.processTrade(offer, player, TradeManager.getUniqueTradesRequiredPerTierConfig(), PlayerTradeProgress.get(player));
                             blockEntity.markDirtyAndSync();
                             return;
                         }
@@ -175,7 +173,7 @@ public class TradeBlockMenu extends AbstractContainerMenu {
      */
     public int getUniqueTradesRequiredForCurrentTier() {
         int tier = getCurrentTier();
-        int required = com.funcation.data.TradeManager.getUniqueTradesRequiredForTier(tier);
+        int required = TradeManager.getUniqueTradesRequiredForTier(tier);
         return required;
     }
 }

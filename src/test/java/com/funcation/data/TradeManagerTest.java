@@ -1,12 +1,11 @@
 package com.funcation.data;
 
+import com.funcation.trade.data.TradeManager;
 import net.minecraft.SharedConstants; // Added import
 import net.minecraft.server.Bootstrap; // Added import
 import org.junit.jupiter.api.Test;
 
-import com.funcation.data.trades.TradeOffer;
-import com.funcation.player.PlayerTradeProgress;
-import java.util.List;
+import com.funcation.trade.player.PlayerTradeProgress;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -58,7 +57,7 @@ class TradeManagerTest {
 
     @Test
     void testIsTradeValid_NoCycle() {
-        com.funcation.data.trades.TradeOffer offer = new com.funcation.data.trades.TradeOffer(
+        com.funcation.trade.data.trades.TradeOffer offer = new com.funcation.trade.data.trades.TradeOffer(
             java.util.List.of(new net.minecraft.world.item.ItemStack(net.minecraft.world.item.Items.STONE, 1)),
             new net.minecraft.world.item.ItemStack(net.minecraft.world.item.Items.COBBLESTONE, 1),
             1, Integer.MAX_VALUE
@@ -69,12 +68,12 @@ class TradeManagerTest {
 
     @Test
     void testIsTradeValid_DirectCycle() {
-        com.funcation.data.trades.TradeOffer offer1 = new com.funcation.data.trades.TradeOffer(
+        com.funcation.trade.data.trades.TradeOffer offer1 = new com.funcation.trade.data.trades.TradeOffer(
             java.util.List.of(new net.minecraft.world.item.ItemStack(net.minecraft.world.item.Items.DIAMOND, 1)),
             new net.minecraft.world.item.ItemStack(net.minecraft.world.item.Items.EMERALD, 1),
             1, Integer.MAX_VALUE
         );
-        com.funcation.data.trades.TradeOffer offer2 = new com.funcation.data.trades.TradeOffer(
+        com.funcation.trade.data.trades.TradeOffer offer2 = new com.funcation.trade.data.trades.TradeOffer(
             java.util.List.of(new net.minecraft.world.item.ItemStack(net.minecraft.world.item.Items.EMERALD, 1)),
             new net.minecraft.world.item.ItemStack(net.minecraft.world.item.Items.DIAMOND, 1),
             1, Integer.MAX_VALUE
@@ -96,12 +95,12 @@ class TradeManagerTest {
 
     @Test
     void testIsTradeValid_CycleWithDifferentAmounts() {
-        com.funcation.data.trades.TradeOffer offer1 = new com.funcation.data.trades.TradeOffer(
+        com.funcation.trade.data.trades.TradeOffer offer1 = new com.funcation.trade.data.trades.TradeOffer(
             java.util.List.of(new net.minecraft.world.item.ItemStack(net.minecraft.world.item.Items.DIAMOND, 1)),
             new net.minecraft.world.item.ItemStack(net.minecraft.world.item.Items.EMERALD, 2),
             1, Integer.MAX_VALUE
         ); // D(1) -> E(2)
-        com.funcation.data.trades.TradeOffer offer2 = new com.funcation.data.trades.TradeOffer(
+        com.funcation.trade.data.trades.TradeOffer offer2 = new com.funcation.trade.data.trades.TradeOffer(
             java.util.List.of(new net.minecraft.world.item.ItemStack(net.minecraft.world.item.Items.EMERALD, 2)),
             new net.minecraft.world.item.ItemStack(net.minecraft.world.item.Items.DIAMOND, 1),
             1, Integer.MAX_VALUE
@@ -124,7 +123,7 @@ class TradeManagerTest {
 
     @Test
     void testIsTradeValid_ExistingDirtGravelTrade() {
-        com.funcation.data.trades.TradeOffer dirtToGravel = TradeManager.getTradesForTier(1).stream()
+        com.funcation.trade.data.trades.TradeOffer dirtToGravel = TradeManager.getTradesForTier(1).stream()
             .filter(t -> t.getInputs().size() == 1 && t.getInputs().get(0).is(net.minecraft.world.item.Items.DIRT) && t.getOutput().is(net.minecraft.world.item.Items.GRAVEL))
             .findFirst().orElse(null);
 
@@ -138,7 +137,7 @@ class TradeManagerTest {
     // New unique trade progression tests (updated to use PlayerTradeProgress)
     @Test
     void testCanUnlockNextTierUnique_SufficientUniqueTrades() {
-        PlayerTradeProgress progress = new com.funcation.player.PlayerTradeProgress();
+        PlayerTradeProgress progress = new com.funcation.trade.player.PlayerTradeProgress();
         progress.addUniqueTrade(1, "tradeA");
         progress.addUniqueTrade(1, "tradeB");
         progress.addUniqueTrade(1, "tradeC");
@@ -148,7 +147,7 @@ class TradeManagerTest {
 
     @Test
     void testCanUnlockNextTierUnique_InsufficientUniqueTrades() {
-        PlayerTradeProgress progress = new com.funcation.player.PlayerTradeProgress();
+        PlayerTradeProgress progress = new com.funcation.trade.player.PlayerTradeProgress();
         progress.addUniqueTrade(1, "tradeA");
         progress.addUniqueTrade(1, "tradeB");
         java.util.List<Integer> config = java.util.Arrays.asList(3, 2, 4);
@@ -157,7 +156,7 @@ class TradeManagerTest {
 
     @Test
     void testCanUnlockNextTierUnique_DuplicateTradesNotCounted() {
-        PlayerTradeProgress progress = new com.funcation.player.PlayerTradeProgress();
+        PlayerTradeProgress progress = new com.funcation.trade.player.PlayerTradeProgress();
         progress.addUniqueTrade(1, "tradeA");
         progress.addUniqueTrade(1, "tradeA"); // duplicate
         progress.addUniqueTrade(1, "tradeB");
@@ -167,7 +166,7 @@ class TradeManagerTest {
 
     @Test
     void testCanUnlockNextTierUnique_PerTierConfigRespected() {
-        PlayerTradeProgress progress = new com.funcation.player.PlayerTradeProgress();
+        PlayerTradeProgress progress = new com.funcation.trade.player.PlayerTradeProgress();
         progress.addUniqueTrade(1, "tradeA");
         progress.addUniqueTrade(1, "tradeB");
         progress.addUniqueTrade(1, "tradeC");
@@ -183,7 +182,7 @@ class TradeManagerTest {
 
     @Test
     void testCanUnlockNextTierUnique_ConfigShorterThanTiers() {
-        PlayerTradeProgress progress = new com.funcation.player.PlayerTradeProgress();
+        PlayerTradeProgress progress = new com.funcation.trade.player.PlayerTradeProgress();
         progress.addUniqueTrade(1, "tradeA");
         progress.addUniqueTrade(1, "tradeB");
         progress.addUniqueTrade(1, "tradeC");

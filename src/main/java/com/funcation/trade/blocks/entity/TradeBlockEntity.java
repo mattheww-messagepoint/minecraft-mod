@@ -1,5 +1,9 @@
-package com.funcation.blocks.entity;
+package com.funcation.trade.blocks.entity;
 
+import com.funcation.trade.data.TradeManager;
+import com.funcation.trade.registry.ModBlockEntities;
+import com.funcation.trade.data.trades.TradeOffer;
+import com.funcation.trade.player.PlayerTradeProgress;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
@@ -8,7 +12,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
-import com.funcation.registry.ModBlockEntities; // Added import for ModBlockEntities
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.MenuProvider;
@@ -21,8 +24,6 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
 
-import com.funcation.data.TradeManager;
-import com.funcation.player.PlayerTradeProgress;
 
 /**
  * Block entity for the Trade Block, handles inventory and trade logic.
@@ -129,7 +130,7 @@ public class TradeBlockEntity extends BlockEntity implements MenuProvider {
     }
 
     @Override
-    protected void saveAdditional(@NotNull CompoundTag pTag) {
+    public void saveAdditional(@NotNull CompoundTag pTag) {
         super.saveAdditional(pTag);
         // Save the inventory items to the compound tag
         pTag.put("Items", inventory.createTag());
@@ -184,7 +185,7 @@ public class TradeBlockEntity extends BlockEntity implements MenuProvider {
     public AbstractContainerMenu createMenu(int pContainerId, @NotNull net.minecraft.world.entity.player.Inventory pPlayerInventory, @NotNull Player pPlayer) {
         // Provide access to this block entity's inventory via ContainerLevelAccess
         assert this.level != null;
-        return new com.funcation.screen.TradeBlockMenu(pContainerId, pPlayerInventory, net.minecraft.world.inventory.ContainerLevelAccess.create(this.level, this.getBlockPos()));
+        return new com.funcation.trade.screen.TradeBlockMenu(pContainerId, pPlayerInventory, net.minecraft.world.inventory.ContainerLevelAccess.create(this.level, this.getBlockPos()));
     }
 
     public ContainerData getContainerData() {
@@ -208,7 +209,7 @@ public class TradeBlockEntity extends BlockEntity implements MenuProvider {
      * @param playerProgress The PlayerTradeProgress instance for this player
      * @return true if the trade was successful, false otherwise
      */
-    public boolean processTrade(com.funcation.data.trades.TradeOffer offer, Player player, java.util.List<Integer> uniqueTradesRequiredPerTier, PlayerTradeProgress playerProgress) {
+    public boolean processTrade(TradeOffer offer, Player player, java.util.List<Integer> uniqueTradesRequiredPerTier, PlayerTradeProgress playerProgress) {
         System.out.println("[TRADE DEBUG] ENTER processTrade: offer=" + offer + ", player=" + player.getName().getString());
         // Check if trade tier is unlocked
         if (offer.getTier() > this.currentTier) return false;
@@ -241,14 +242,14 @@ public class TradeBlockEntity extends BlockEntity implements MenuProvider {
             outSlot.grow(output.getCount());
         }
         // Unique trade progression logic
-        boolean isNewUnique = com.funcation.data.TradeManager.addUniqueTradeIfNew(playerProgress, offer);
+        boolean isNewUnique = TradeManager.addUniqueTradeIfNew(playerProgress, offer);
         System.out.println("[TRADE DEBUG] processTrade: offer=" + offer + ", isNewUnique=" + isNewUnique);
         if (isNewUnique) {
             int completed = playerProgress.getUniqueTradeCount(offer.getTier());
             System.out.println("[TRADE DEBUG] Unique trades completed for tier " + offer.getTier() + ": " + completed);
             uniqueTradesCompletedSynced = completed;
             // Check if enough unique trades have been completed to unlock next tier
-            if (com.funcation.data.TradeManager.canUnlockNextTierUnique(this.currentTier, playerProgress, uniqueTradesRequiredPerTier)) {
+            if (TradeManager.canUnlockNextTierUnique(this.currentTier, playerProgress, uniqueTradesRequiredPerTier)) {
                 this.currentTier++;
                 // Reset unique trades for the new tier
                 playerProgress.clearUniqueTradesForTier(this.currentTier);
@@ -273,9 +274,9 @@ public class TradeBlockEntity extends BlockEntity implements MenuProvider {
      * @param offer The TradeOffer to validate
      * @return true if the inventory is valid for the trade, false otherwise
      */
-    public boolean isValidTradeInput(com.funcation.data.trades.TradeOffer offer) {
+    public boolean isValidTradeInput(TradeOffer offer) {
         if (offer.getTier() > this.currentTier) return false;
-        if (!com.funcation.data.TradeManager.isTradeValid(offer)) return false; // Added exploit check
+        if (!TradeManager.isTradeValid(offer)) return false; // Added exploit check
         // Only apply maxUses check for current tier trades
         if (offer.getTier() == this.currentTier && offer.getMaxUses() != Integer.MAX_VALUE && this.tradesCompleted >= offer.getMaxUses()) return false;
         java.util.List<net.minecraft.world.item.ItemStack> inputs = offer.getInputs();
@@ -308,7 +309,7 @@ public class TradeBlockEntity extends BlockEntity implements MenuProvider {
         int tier = blockEntity.getCurrentTier();
         boolean found = false;
         // Check all trades up to and including the current tier
-        for (com.funcation.data.trades.TradeOffer offer : getAllAvailableTrades(tier)) {
+        for (TradeOffer offer : getAllAvailableTrades(tier)) {
             if (blockEntity.isValidTradeInput(offer)) {
                 ItemStack output = offer.getOutput();
                 ItemStack outSlot = inventory.getItem(2);
@@ -330,10 +331,10 @@ public class TradeBlockEntity extends BlockEntity implements MenuProvider {
     }
 
     // Helper: Get all trades up to and including the current tier
-    private static java.util.List<com.funcation.data.trades.TradeOffer> getAllAvailableTrades(int currentTier) {
-        java.util.List<com.funcation.data.trades.TradeOffer> all = new java.util.ArrayList<>();
+    private static java.util.List<TradeOffer> getAllAvailableTrades(int currentTier) {
+        java.util.List<TradeOffer> all = new java.util.ArrayList<>();
         for (int t = 1; t <= currentTier; t++) {
-            all.addAll(com.funcation.data.TradeManager.getTradesForTier(t));
+            all.addAll(TradeManager.getTradesForTier(t));
         }
         return all;
     }

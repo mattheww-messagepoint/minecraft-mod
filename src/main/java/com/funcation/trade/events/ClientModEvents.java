@@ -1,8 +1,7 @@
-package com.funcation.events;
+package com.funcation.trade.events;
 
-import com.funcation.registry.ModMenuTypes;
-import com.funcation.screen.TradeBlockMenu;
-import com.funcation.screen.TradeBlockScreen;
+import com.funcation.trade.registry.ModMenuTypes;
+import com.funcation.trade.screen.TradeBlockScreen;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.eventbus.api.SubscribeEvent;

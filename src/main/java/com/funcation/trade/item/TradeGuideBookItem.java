@@ -1,7 +1,7 @@
-package com.funcation.item;
+package com.funcation.trade.item;
 
-import com.funcation.data.TradeManager;
-import com.funcation.data.trades.TradeOffer;
+import com.funcation.trade.data.TradeManager;
+import com.funcation.trade.data.trades.TradeOffer;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;

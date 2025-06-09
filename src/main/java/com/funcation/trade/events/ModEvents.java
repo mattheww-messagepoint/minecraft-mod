@@ -1,6 +1,6 @@
-package com.funcation.events;
+package com.funcation.trade.events;
 
-import com.funcation.registry.ModBlocks;
+import com.funcation.trade.registry.ModBlocks;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.event.entity.player.PlayerEvent;

@@ -1,4 +1,4 @@
-package com.funcation.data.trades;
+package com.funcation.trade.data.trades;
 
 import net.minecraft.world.item.ItemStack;
 import java.util.List;

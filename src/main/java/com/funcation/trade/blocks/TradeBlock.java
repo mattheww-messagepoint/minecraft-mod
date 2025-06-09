@@ -1,7 +1,7 @@
-package com.funcation.blocks;
+package com.funcation.trade.blocks;
 
-import com.funcation.blocks.entity.TradeBlockEntity;
-import com.funcation.registry.ModBlockEntities;
+import com.funcation.trade.blocks.entity.TradeBlockEntity;
+import com.funcation.trade.registry.ModBlockEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
